@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<OrderedTest name="orderedtest1" storage="c:\users\vineel\documents\visual studio 2015\projects\numericsequencecalculator\numericsequencecalculator.tests\orderedtest1.orderedtest" id="6c9851ec-554d-40d4-9a4f-0645ec492a0d" continueAfterFailure="true" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestLinks>
+    <TestLink id="7025019b-d5a6-30cb-44c9-acc18645c89f" name="Index" storage="bin\debug\numericsequencecalculator.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <TestLink id="a20df3da-376d-adb6-17db-98533ee204e1" name="CalculateSequenceWithInvalidModel" storage="bin\debug\numericsequencecalculator.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <TestLink id="3b99f617-63a5-e8de-deed-a542512c2b85" name="CalculateSequenceValidModelForSequenceType" storage="bin\debug\numericsequencecalculator.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <TestLink id="e4e615d8-8b1e-9c98-4547-6b400c03e494" name="CalculateSequenceValidModelForAllSequenceTypes" storage="bin\debug\numericsequencecalculator.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  </TestLinks>
+</OrderedTest>

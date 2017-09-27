@@ -1,0 +1,91 @@
+﻿@using NumericSequenceCalculator.Web.Helpers
+@using NumericSequenceCalculator.Web.Models
+@model SequenceNumberBindingModel
+@{
+    ViewBag.Title = "Calculate";
+}
+<script language="javascript">
+    function ShowResult(id) {
+        if ($("#dvResult" + id).outerHeight() === 65)
+            $("#dvResult" + id).css({ "height": "100%" });
+        else {
+            $("#dvResult" + id).css({ "height": "65px" });
+        }
+    }
+</script>
+<h2 style="text-align: center;">Welcome to Numeric Sequence Calculator</h2>
+<div class="row" style="padding: 20px;">
+    <div class="col-md-6" style="padding: 5px;">
+        @using (Html.BeginForm("Calculate", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-group" style="float: left;">
+                @Html.LabelFor(m => m.Number, new { @class = "col-md-6 control-label" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(m => m.Number, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Number, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Initiate Calculation" class="btn btn-default" />
+                </div>
+            </div>
+        }
+    </div>
+    <div class="col-md-6" style="border: 1px solid gray; padding: 5px;">
+        <h3>Instructions</h3>
+        <dl>
+            <dt>
+                For Input
+            </dt>
+            <dd>
+                1) Enter only positive whole number.
+            </dd>
+            <dd>
+                2) Click on Initiate Calculation button.
+            </dd>
+            <dt>
+                For Output
+            </dt>
+            <dd>
+                1) Results will be only positive whole numbers
+            </dd>
+        </dl>
+    </div>
+</div>
+@if (ViewData.ContainsKey("Results") && ViewData["Results"] is Dictionary<long, List<double>>)
+{
+    var counter = 0;
+    <div class="row" style="padding: 20px;">
+        <h2>Results</h2>
+        
+        @foreach (var record in ((Dictionary<long, List<double>>) ViewData["Results"]).OrderBy(a => a.Key))
+        {
+            ++counter;
+            var sequenceType = SequenceType.GetSequenceType(record.Key);
+            if (!sequenceType.ParentId.HasValue)
+            {
+                var value = record.Value != null && record.Value.Any() ? string.Join(", ", record.Value) : "No results";
+                var childResults = SequenceType.All.Where(a => a.ParentId == sequenceType.Id).Select(a => new { a.Id, ((Dictionary<long, List<double>>) ViewData["Results"]).FirstOrDefault(b => b.Key == a.Id).Value }).ToDictionary(a => a.Id, a => a.Value);
+                <div style="border: 1px solid lightblue; margin: 5px; padding: 10px;height: 65px;overflow: hidden;cursor: pointer;" id="@string.Concat("dvResult", counter)" onclick="ShowResult(@counter)">
+                    <h3>@sequenceType.Name</h3>
+                    @if (childResults.Any())
+                    {
+                        foreach (var childRec in childResults)
+                        {
+                            var childSequenceType = SequenceType.GetSequenceType(childRec.Key);
+                            var childValue = childRec.Value != null && childRec.Value.Any() ? string.Join(", ", childRec.Value) : "No results";
+                            <span style="margin-left: 15px;">@Html.Raw(childSequenceType.Description)</span>
+                            <p style="font-weight: 600; margin-left: 15px;">@childValue</p>
+                        }
+                    }
+                    else{
+                        <span style="margin-left: 5px;">@Html.Raw(sequenceType.Description)</span>
+                    }
+                    <p style="font-weight: bold; margin-left: 5px;">Result</p> <p style="font-weight: 600; margin-left: 5px;">@value</p>
+                </div>
+            }
+        }
+    </div>
+}
